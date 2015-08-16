@@ -61,6 +61,7 @@ for i in $(seq 0 $((${#GET_URL[@]} - 1))); do
 	TARBALL[$i]=$(basename ${GET_URL[$i]})
 	NAME[$i]=${TARBALL[$i]%%.tar.*}
 done
+NAME[0]=gmp-6.0.0
 
 do_download() {
 	local downloaded=".downloaded"
