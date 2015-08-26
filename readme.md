@@ -14,7 +14,7 @@ Source could be obtained here:
 Before you start, make sure that you don't have QEMU installed from repos
 > sudo apt-get remove qemu*
 
-Then you will need some packeges to build qemu from source
+Then you will need some packages to build qemu from source
 > sudo apt-get install zlib1g-dev libglib2.0-dev autoconf libtool libpixman-1-dev device-tree-compiler libfdt-dev
 
 Finally, you can build and install it
