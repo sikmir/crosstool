@@ -51,7 +51,7 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 GET_URL=("http://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2" \
 	"http://ftp.gnu.org/gnu/mpfr/mpfr-3.1.2.tar.gz" \
 	"http://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz" \
-	"http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.bz2" \
+	"http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.bz2" \
 	"http://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2" \
 	"http://ftp.gnu.org/gnu/gdb/gdb-7.9.tar.xz")
 
