@@ -199,6 +199,7 @@ do_gdb() {
 		pushd $build_dir > /dev/null
 		if [ ! -e Makefile ]; then
 			$source_dir/configure \
+				CFLAGS="-std=gnu90" \
 				--prefix=$install_dir \
 				--target=$TARGET \
 				|| error_exit "Configuration gdb failed"
