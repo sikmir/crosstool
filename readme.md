@@ -1,8 +1,25 @@
 # Embox Crosstool
-This toolkit will help you to build cross-compiler for ARM/MIPS/Microblaze/msp430/PPC/Sparc.
+This toolkit will help you to build cross-compiler for various architectures. Supported:
+* `i386`
+* `microblaze`
+* `mips`
+* `msp430`
+* `powerpc`
+* `sparc`
+
+In following text `ARCH` mean some architecture from  listed above.
 
 ### Prerequisites
 > sudo apt-get install libisl-dev libcloog-isl-dev gcc-multilib g++-multilib libncurses5-dev texinfo
+
+### Building
+> ./crosstool.sh ARCH
+
+It will download all necessary sources, unpack it, configure, compile and pack `ARCH-elf-toolchain.tar.bz2`
+
+### Installing
+Unpack ARCH-elf-toolchain.tar.bz2 and add /dest/ARCH-elf-toolchain/bin to $PATH. Or, just run
+> ./install_crosstool.sh ARCH
 
 ### Using QEMU to run image
 
