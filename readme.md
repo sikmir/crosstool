@@ -10,7 +10,7 @@ This toolkit will help you to build cross-compiler for various architectures. Su
 In following text `ARCH` mean some architecture from  listed above.
 
 ### Prerequisites
-> sudo apt-get install libisl-dev libcloog-isl-dev gcc-multilib g++-multilib libncurses5-dev texinfo bzip2 xz-utils make flex
+> sudo apt-get install libisl-dev libcloog-isl-dev gcc-multilib g++-multilib libncurses5-dev texinfo bzip2 xz-utils make flex file
 
 ### Building
 > ./crosstool.sh ARCH
