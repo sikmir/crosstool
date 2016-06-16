@@ -85,6 +85,8 @@ do_unpack() {
 			print_msg "Extracting ${TARBALL[$i]}"
 			unzip_tar=$(echo ${TARBALL[$i]} | sed 's/.*\.gz/z/;s/.*.\.bz2/j/;s/.*\.xz/J/')
 			[ -d ${NAME[$i]} ] || tar -${unzip_tar}xf $DOWNLOAD/${TARBALL[$i]}
+			exit_code=$?
+			[ $exit_code = 0 ] || exit $exit_code
 		done
 
 		print_msg "Set symlinks for binutils"
