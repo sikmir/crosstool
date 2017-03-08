@@ -1,5 +1,9 @@
 # Embox Crosstool
-This toolkit will help you to build cross-compiler for various architectures. Supported:
+[![Build Status](https://travis-ci.org/embox/crosstool.svg?branch=master)](https://travis-ci.org/embox/crosstool)
+
+Embox maintains a number of crosstools (binutils, gcc, gdb) that are most likely to work
+for embox supported targets. This repo holds `crosstool.sh`, a script that builds crosstool
+for:
 * `i386`
 * `microblaze`
 * `mips`
@@ -7,6 +11,9 @@ This toolkit will help you to build cross-compiler for various architectures. Su
 * `powerpc`
 * `sparc`
 
+For prebuild linux binary please refer to Release section.
+
+The rest of README describes how to build crosstool by yourself.
 In following text `ARCH` mean some architecture from  listed above.
 
 ### Prerequisites
@@ -36,3 +43,13 @@ Then you will need some packages to build qemu from source
 
 Finally, you can build and install it
 > cd /path/to/source/qemu-linaro-1.7.0-2014.01/ && ./configure && make && sudo make install
+
+# For Crosstool developers
+
+Once you've updated crosstool.sh or target subscript, pushed you changes, and got OK status from travis,
+you could tag you commit, then travis will rebuild the crosstools and publish build artifacts in Release section.
+Workflow is like:
+> git commit && git push # Suppose travis failed to build everything
+> git commit && git push # Suppose travis went OK
+> git tag -f current # Tag latest commit with `current` tag, overriding previous tag value
+> git push origin current # Push tag, triggers travis to publish result under `current` release
