@@ -48,12 +48,12 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 #  3 - binutils
 #  4 - gcc
 #  5 - gdb
-GET_URL=("http://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2" \
-	"http://ftp.gnu.org/gnu/mpfr/mpfr-3.1.2.tar.gz" \
+GET_URL=("http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.bz2" \
+	"http://ftp.gnu.org/gnu/mpfr/mpfr-3.1.5.tar.gz" \
 	"http://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz" \
-	"http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.bz2" \
-	"http://ftp.gnu.org/gnu/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2" \
-	"http://ftp.gnu.org/gnu/gdb/gdb-7.9.tar.xz")
+	"http://ftp.gnu.org/gnu/binutils/binutils-2.28.tar.bz2" \
+	"http://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2" \
+	"http://ftp.gnu.org/gnu/gdb/gdb-7.12.tar.xz")
 
 DOWNLOAD=../download
 
@@ -61,7 +61,7 @@ for i in $(seq 0 $((${#GET_URL[@]} - 1))); do
 	TARBALL[$i]=$(basename ${GET_URL[$i]})
 	NAME[$i]=${TARBALL[$i]%%.tar.*}
 done
-NAME[0]=gmp-6.0.0
+#NAME[0]=gmp-6.1.2
 
 do_download() {
 	local downloaded=".downloaded"
