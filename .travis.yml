@@ -18,7 +18,9 @@ addons:
       - texinfo # for gdb docs
 
 script:
-  - "./crosstool.sh $ARCH > crosstool.log" #redirect stdout to avoid travis log limit
+  # traivs could report too many cores, so paralell build will exceed memory limit, add -j option
+  # redirect stdout to avoid travis log limit
+  - "./crosstool.sh -j 4 $ARCH > crosstool.log" 
 
 deploy:
   provider: releases
