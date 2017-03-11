@@ -3,10 +3,7 @@
 # Build a GNU/Linux cross-toolchain
 # $Id$
 
-set -e 
-
-CROSSTOOL_ARCH=$1
-MAKE_FLAGS=-j$(nproc || echo 1)
+set -e
 
 print_msg() {
 	echo -e $1 | tee -a $LOG_FILE
@@ -17,14 +14,28 @@ error_exit() {
 	exit 1
 }
 
-[ ! -z $CROSSTOOL_ARCH ] || error_exit "Provide arch name, like \n$0 sparc"
-[ -f $CROSSTOOL_ARCH.in ] || error_exit "This arch is not supported"
+print_help() {
+	echo "USAGE: $0 [-j JOBS] ARCH"
+	echo "ARCH is one of:"
+	ls *.in | sed 's/\.in//; s/^/    /'
+}
+
+
+JOBS=$(nproc || echo 4)
+while getopts j:h arg; do
+	case $arg in
+		h) print_help; exit 0 ;;
+		j) JOBS="$OPTARG" ;;
+		?) print_help; error_exit "Unknown argument";;
+	esac
+done
+shift $(($OPTIND - 1))
+CROSSTOOL_ARCH=$1
+
+[ ! -z $CROSSTOOL_ARCH ] || error_exit "Provide ARCH name, refer to $0 -h"
+[ -f $CROSSTOOL_ARCH.in ] || error_exit "This arch is not supported, refer to $0 -h"
 
 . ./$CROSSTOOL_ARCH.in
-
-realpath() {
-	[[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
-}
 
 CUR_DIR=$(pwd)
 # Create temp working dir
