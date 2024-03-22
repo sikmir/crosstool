@@ -59,12 +59,12 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 #  3 - binutils
 #  4 - gcc
 #  5 - gdb
-GET_URL=("http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.bz2" \
-	"http://ftp.gnu.org/gnu/mpfr/mpfr-3.1.5.tar.gz" \
-	"http://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz" \
-	"http://ftp.gnu.org/gnu/binutils/binutils-2.28.tar.bz2" \
-	"http://ftp.gnu.org/gnu/gcc/gcc-6.3.0/gcc-6.3.0.tar.bz2" \
-	"http://ftp.gnu.org/gnu/gdb/gdb-7.12.tar.xz")
+GET_URL=("https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2" \
+	"https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.gz" \
+	"https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz" \
+	"https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2" \
+	"https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" \
+	"https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz")
 
 DOWNLOAD=../download
 
@@ -212,7 +212,6 @@ do_gdb() {
 		pushd $build_dir > /dev/null
 		if [ ! -e Makefile ]; then
 			$source_dir/configure \
-				CFLAGS="-std=gnu90" \
 				--prefix=$install_dir \
 				--target=$TARGET \
 				|| error_exit "Configuration gdb failed"
