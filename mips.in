@@ -1,2 +1,2 @@
-TARGET=mips-elf
+TARGET=mips-mti-elf
 TARGET_OPTIONS= 
