@@ -1,2 +1,64 @@
+GCC_MULTILIB_LIST=${GCC_MULTILIB_LIST:-"\
+	--cmodel=medany; \
+	\
+	rv32e-ilp32e--; \
+	rv32ea-ilp32e--; \
+	rv32eac-ilp32e--; \
+	rv32ec-ilp32e--; \
+	rv32em-ilp32e--; \
+	rv32ema-ilp32e--; \
+	rv32emac-ilp32e--; \
+	rv32emc-ilp32e--; \
+	\
+	rv32i-ilp32--; \
+	rv32ia-ilp32--; \
+	rv32iac-ilp32--; \
+	rv32iaf-ilp32f--; \
+	rv32iafc-ilp32f--; \
+	rv32iafd-ilp32d--; \
+	rv32iafdc-ilp32d--; \
+	rv32ic-ilp32--; \
+	rv32if-ilp32f--; \
+	rv32ifc-ilp32f--; \
+	rv32ifd-ilp32d--; \
+	rv32ifdc-ilp32d--; \
+	rv32im-ilp32--; \
+	rv32ima-ilp32--; \
+	rv32imaf-ilp32f--; \
+	rv32imafc-ilp32f--; \
+	rv32imafd-ilp32d--; \
+	rv32imafdc-ilp32d--; \
+	rv32imc-ilp32--; \
+	rv32imf-ilp32f--; \
+	rv32imfc-ilp32f--; \
+	rv32imfd-ilp32d--; \
+	rv32imfdc-ilp32d--; \
+	\
+	rv64i-lp64--; \
+	rv64ia-lp64--; \
+	rv64iac-lp64--; \
+	rv64iaf-lp64f--; \
+	rv64iafc-lp64f--; \
+	rv64iafd-lp64d--; \
+	rv64iafdc-lp64d--; \
+	rv64ic-lp64--; \
+	rv64if-lp64f--; \
+	rv64ifc-lp64f--; \
+	rv64ifd-lp64d--; \
+	rv64ifdc-lp64d--; \
+	rv64im-lp64--; \
+	rv64ima-lp64--; \
+	rv64imac-lp64--; \
+	rv64imaf-lp64f--; \
+	rv64imafc-lp64f--; \
+	rv64imafd-lp64d--; \
+	rv64imafdc-lp64d--; \
+	rv64imc-lp64--; \
+	rv64imf-lp64f--; \
+	rv64imfc-lp64f--; \
+	rv64imfd-lp64d--; \
+	rv64imfdc-lp64d-- \
+"}
+
 TARGET=riscv64-unknown-elf
-TARGET_OPTIONS= 
+TARGET_OPTIONS=--with-multilib-generator="$GCC_MULTILIB_LIST"

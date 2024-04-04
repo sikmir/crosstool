@@ -185,7 +185,7 @@ do_gcc() {
 				--enable-languages=c,c++ \
 				--enable-multilib \
 				--enable-soft-float \
-				$TARGET_OPTIONS \
+				"$TARGET_OPTIONS" \
 				|| error_exit "Configuration gcc failed"
 		fi
 		if ! make -q all-gcc all-target-libgcc; then 
