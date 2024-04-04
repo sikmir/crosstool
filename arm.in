@@ -1,2 +1,2 @@
 TARGET=arm-none-eabi
-TARGET_OPTIONS= 
+TARGET_OPTIONS=--with-multilib-list=aprofile,rmprofile
