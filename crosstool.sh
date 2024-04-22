@@ -53,15 +53,17 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 	$(ls $PATCHES_DIR/$CROSSTOOL_ARCH/*.patch 2>/dev/null || true)"
 
 # Keys:
-#  0 - gmp
-#  1 - mpfr
-#  2 - mpc
-#  3 - binutils
-#  4 - gcc
-#  5 - gdb
-GET_URL=("https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2" \
-	"https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.gz" \
-	"https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz" \
+#  0 - isl
+#  1 - gmp
+#  2 - mpfr
+#  3 - mpc
+#  4 - binutils
+#  5 - gcc
+#  6 - gdb
+GET_URL=("https://libisl.sourceforge.io/isl-0.24.tar.bz2" \
+	"https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2" \
+	"https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.bz2" \
+	"https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz" \
 	"https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2" \
 	"https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" \
 	"https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz")
@@ -72,7 +74,6 @@ for i in $(seq 0 $((${#GET_URL[@]} - 1))); do
 	TARBALL[$i]=$(basename ${GET_URL[$i]})
 	NAME[$i]=${TARBALL[$i]%%.tar.*}
 done
-#NAME[0]=gmp-6.1.2
 
 do_download() {
 	local downloaded=".downloaded"
@@ -101,19 +102,22 @@ do_unpack() {
 		done
 
 		print_msg "Set symlinks for binutils"
-		ln -s ../${NAME[0]} ${NAME[3]}/gmp
-		ln -s ../${NAME[1]} ${NAME[3]}/mpfr
-		ln -s ../${NAME[2]} ${NAME[3]}/mpc
+		ln -s ../${NAME[0]} ${NAME[4]}/isl
+		ln -s ../${NAME[1]} ${NAME[4]}/gmp
+		ln -s ../${NAME[2]} ${NAME[4]}/mpfr
+		ln -s ../${NAME[3]} ${NAME[4]}/mpc
 
 		print_msg "Set symlinks for gcc"
-		ln -s ../${NAME[0]} ${NAME[4]}/gmp
-		ln -s ../${NAME[1]} ${NAME[4]}/mpfr
-		ln -s ../${NAME[2]} ${NAME[4]}/mpc
+		ln -s ../${NAME[0]} ${NAME[5]}/isl
+		ln -s ../${NAME[1]} ${NAME[5]}/gmp
+		ln -s ../${NAME[2]} ${NAME[5]}/mpfr
+		ln -s ../${NAME[3]} ${NAME[5]}/mpc
 
 		print_msg "Set symlinks for gdb"
-		ln -s ../${NAME[0]} ${NAME[5]}/gmp
-		ln -s ../${NAME[1]} ${NAME[5]}/mpfr
-		ln -s ../${NAME[2]} ${NAME[5]}/mpc
+		ln -s ../${NAME[0]} ${NAME[6]}/isl
+		ln -s ../${NAME[1]} ${NAME[6]}/gmp
+		ln -s ../${NAME[2]} ${NAME[6]}/mpfr
+		ln -s ../${NAME[3]} ${NAME[6]}/mpc
 	fi
 	print_msg "Extract done"
 	touch $extracted
@@ -130,7 +134,7 @@ do_unpack() {
 }
 
 do_binutils() {
-	local source_dir="../${NAME[3]}"
+	local source_dir="../${NAME[4]}"
 	local build_dir="build-binutils"
 	local install_dir="$BUILD_DIR/install-binutils"
 	local binutils_done=".binutils_done"
@@ -160,7 +164,7 @@ do_binutils() {
 }
 
 do_gcc() {
-	local source_dir="../${NAME[4]}"
+	local source_dir="../${NAME[5]}"
 	local build_dir="build-gcc"
 	local install_dir="$BUILD_DIR/install-gcc"
 	local binutils_dir="$BUILD_DIR/install-binutils"
@@ -183,6 +187,7 @@ do_gcc() {
 				--with-gnu-as \
 				--with-gnu-ld \
 				--enable-languages=c,c++ \
+				--enable-static \
 				--enable-multilib \
 				--enable-soft-float \
 				"$TARGET_OPTIONS" \
@@ -200,7 +205,7 @@ do_gcc() {
 }
 
 do_gdb() {
-	local source_dir="../${NAME[5]}"
+	local source_dir="../${NAME[6]}"
 	local build_dir="build-gdb"
 	local install_dir="$BUILD_DIR/install-gdb"
 	local gdb_done=".gdb_done"
