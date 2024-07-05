@@ -20,7 +20,6 @@ print_help() {
 	ls *.in | sed 's/\.in//; s/^/    /'
 }
 
-
 JOBS=$(nproc || echo 4)
 while getopts j:h arg; do
 	case $arg in
@@ -37,15 +36,16 @@ CROSSTOOL_ARCH=$1
 
 . ./$CROSSTOOL_ARCH.in
 
-CUR_DIR=$(pwd)
 # Create temp working dir
 if [ ! -e build-$CROSSTOOL_ARCH ]; then 
 	mkdir build-$CROSSTOOL_ARCH
 fi
+
+CUR_DIR=$(pwd)
+
 BUILD_DIR=$CUR_DIR/build-$CROSSTOOL_ARCH
 
 LOG_FILE=$BUILD_DIR/emtool.log
-
 
 PATCHES_DIR=$CUR_DIR/patches
 
@@ -65,7 +65,7 @@ GET_URL=("https://libisl.sourceforge.io/isl-0.24.tar.bz2" \
 	"https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.bz2" \
 	"https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz" \
 	"https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2" \
-	"https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz" \
+	"https://ftp.gnu.org/gnu/gcc/gcc-13.3.0/gcc-13.3.0.tar.gz" \
 	"https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz")
 
 DOWNLOAD=../download
@@ -74,6 +74,8 @@ for i in $(seq 0 $((${#GET_URL[@]} - 1))); do
 	TARBALL[$i]=$(basename ${GET_URL[$i]})
 	NAME[$i]=${TARBALL[$i]%%.tar.*}
 done
+
+MAKE_FLAGS="${MAKE_FLAGS} -j$JOBS"
 
 do_download() {
 	local downloaded=".downloaded"
