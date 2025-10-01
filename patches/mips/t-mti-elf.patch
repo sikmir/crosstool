@@ -1,5 +1,5 @@
---- gcc-13.3.0/gcc/config/mips/t-mti-elf	2023-07-27 11:13:04.000000000 +0300
-+++ gcc-13.3.0/gcc/config/mips/t-mti-elf-new	2024-04-06 05:57:41.083277145 +0300
+--- gcc-14.3.0/gcc/config/mips/t-mti-elf	2025-05-23 14:02:04.412199414 +0300
++++ gcc-14.3.0/gcc/config/mips/t-mti-elf-new	2025-10-02 02:40:30.936780076 +0300
 @@ -19,8 +19,8 @@
  # The default build is mips32r2, hard-float big-endian.  Add mips32,
  # soft-float, and little-endian variations.

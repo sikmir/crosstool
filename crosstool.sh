@@ -60,13 +60,14 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 #  4 - binutils
 #  5 - gcc
 #  6 - gdb
-GET_URL=("https://libisl.sourceforge.io/isl-0.24.tar.bz2" \
-	"https://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.bz2" \
-	"https://ftp.gnu.org/gnu/mpfr/mpfr-4.1.0.tar.bz2" \
-	"https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz" \
-	"https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.bz2" \
-	"https://ftp.gnu.org/gnu/gcc/gcc-13.3.0/gcc-13.3.0.tar.gz" \
-	"https://ftp.gnu.org/gnu/gdb/gdb-14.2.tar.xz")
+GET_URL=( \
+"https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2" \
+"https://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.2.1.tar.bz2" \
+"https://gcc.gnu.org/pub/gcc/infrastructure/mpfr-4.1.0.tar.bz2" \
+"https://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.2.1.tar.gz" \
+"https://sourceware.org/pub/binutils/releases/binutils-2.44.tar.bz2" \
+"https://sourceware.org/pub/gcc/releases/gcc-14.3.0/gcc-14.3.0.tar.gz" \
+"https://sourceware.org/pub/gdb/releases/gdb-15.2.tar.xz")
 
 DOWNLOAD=../download
 
