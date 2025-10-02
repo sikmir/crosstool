@@ -53,18 +53,10 @@ PATCHES="$(ls $PATCHES_DIR/*.patch 2>/dev/null || true)
 	$(ls $PATCHES_DIR/$CROSSTOOL_ARCH/*.patch 2>/dev/null || true)"
 
 # Keys:
-#  0 - isl
-#  1 - gmp
-#  2 - mpfr
-#  3 - mpc
-#  4 - binutils
-#  5 - gcc
-#  6 - gdb
+#  0 - binutils
+#  1 - gcc
+#  2 - gdb
 GET_URL=( \
-"https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2" \
-"https://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.2.1.tar.bz2" \
-"https://gcc.gnu.org/pub/gcc/infrastructure/mpfr-4.1.0.tar.bz2" \
-"https://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.2.1.tar.gz" \
 "https://sourceware.org/pub/binutils/releases/binutils-2.44.tar.bz2" \
 "https://sourceware.org/pub/gcc/releases/gcc-14.3.0/gcc-14.3.0.tar.gz" \
 "https://sourceware.org/pub/gdb/releases/gdb-15.2.tar.xz")
@@ -104,23 +96,10 @@ do_unpack() {
 			[ $exit_code = 0 ] || exit $exit_code
 		done
 
-		print_msg "Set symlinks for binutils"
-		ln -s ../${NAME[0]} ${NAME[4]}/isl
-		ln -s ../${NAME[1]} ${NAME[4]}/gmp
-		ln -s ../${NAME[2]} ${NAME[4]}/mpfr
-		ln -s ../${NAME[3]} ${NAME[4]}/mpc
-
-		print_msg "Set symlinks for gcc"
-		ln -s ../${NAME[0]} ${NAME[5]}/isl
-		ln -s ../${NAME[1]} ${NAME[5]}/gmp
-		ln -s ../${NAME[2]} ${NAME[5]}/mpfr
-		ln -s ../${NAME[3]} ${NAME[5]}/mpc
-
-		print_msg "Set symlinks for gdb"
-		ln -s ../${NAME[0]} ${NAME[6]}/isl
-		ln -s ../${NAME[1]} ${NAME[6]}/gmp
-		ln -s ../${NAME[2]} ${NAME[6]}/mpfr
-		ln -s ../${NAME[3]} ${NAME[6]}/mpc
+		print_msg "Download libraries required for gcc"
+		pushd ${NAME[1]} > /dev/null
+		./contrib/download_prerequisites
+		popd > /dev/null
 	fi
 	print_msg "Extract done"
 	touch $extracted
@@ -137,7 +116,7 @@ do_unpack() {
 }
 
 do_binutils() {
-	local source_dir="../${NAME[4]}"
+	local source_dir="../${NAME[0]}"
 	local build_dir="build-binutils"
 	local install_dir="$BUILD_DIR/install-binutils"
 	local binutils_done=".binutils_done"
@@ -167,7 +146,7 @@ do_binutils() {
 }
 
 do_gcc() {
-	local source_dir="../${NAME[5]}"
+	local source_dir="../${NAME[1]}"
 	local build_dir="build-gcc"
 	local install_dir="$BUILD_DIR/install-gcc"
 	local binutils_dir="$BUILD_DIR/install-binutils"
@@ -208,7 +187,7 @@ do_gcc() {
 }
 
 do_gdb() {
-	local source_dir="../${NAME[6]}"
+	local source_dir="../${NAME[2]}"
 	local build_dir="build-gdb"
 	local install_dir="$BUILD_DIR/install-gdb"
 	local gdb_done=".gdb_done"
