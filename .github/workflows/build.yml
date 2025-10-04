@@ -1,0 +1,40 @@
+name: Crosstool build
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: "Architecture to build"
+        required: true
+        type: choice
+        default: "arm"
+        options:
+          - aarch64
+          - arm
+          - i386
+          - microblaze
+          - mips
+          - msp430
+          - powerpc
+          - riscv
+          - sparc
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ARCH: ${{ inputs.arch }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-multilib texinfo
+      - name: Build toolchain
+        run: |
+          ./crosstool.sh -j 2 "$ARCH"
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ env.ARCH }}-toolchain"
+          path: "*-toolchain.tar.bz2"
+          retention-days: 5
