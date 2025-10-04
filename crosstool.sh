@@ -100,6 +100,9 @@ do_unpack() {
 		pushd ${NAME[1]} > /dev/null
 		./contrib/download_prerequisites
 		popd > /dev/null
+		print_msg "Set symlinks for gdb"
+		ln -s ../gcc/gmp gdb/gmp
+		ln -s ../gcc/mpfr gdb/mpfr
 	fi
 	print_msg "Extract done"
 	touch $extracted
@@ -199,6 +202,8 @@ do_gdb() {
 		pushd $build_dir > /dev/null
 		if [ ! -e Makefile ]; then
 			$source_dir/configure \
+				--with-gmp=$source_dir/gmp \
+				--with-mpfr=$source_dir/mpfr \
 				--prefix=$install_dir \
 				--target=$TARGET \
 				|| error_exit "Configuration gdb failed"
